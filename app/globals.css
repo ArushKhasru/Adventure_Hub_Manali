@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+main {
+  padding-top: 0;
 }
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-forest: oklch(47.58% 0.0777 162.16);
+  --color-deep-forest: oklch(38.15% 0.0613 164.19);
+  --color-mint: oklch(82.01% 0.0819 159.98);
+  --color-soft-white: oklch(98.16% 0.0017 247.84);
+  --color-ink: oklch(22.84% 0.0384 282.93);
+  --color-muted-slate: oklch(51.28% 0.0375 264.16);
+  --color-gold: oklch(75.41% 0.0853 67.1);
+  --color-forest-wash: oklch(95.4% 0.025 160.2);
+  --font-display: var(--font-bricolage);
+  --font-body: var(--font-atkinson);
+  --font-sans: var(--font-atkinson);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --color-forest: oklch(47.58% 0.0777 162.16);
+  --color-deep-forest: oklch(38.15% 0.0613 164.19);
+  --color-mint: oklch(82.01% 0.0819 159.98);
+  --color-soft-white: oklch(98.16% 0.0017 247.84);
+  --color-ink: oklch(22.84% 0.0384 282.93);
+  --color-muted-slate: oklch(51.28% 0.0375 264.16);
+  --color-gold: oklch(75.41% 0.0853 67.1);
+  --color-forest-wash: oklch(95.4% 0.025 160.2);
+  --font-display: var(--font-bricolage), "Arial Narrow", sans-serif;
+  --font-body: var(--font-atkinson), Arial, sans-serif;
+  --header-height: 4.75rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 20rem;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-soft-white);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--color-mint);
+  color: var(--color-ink);
+}
+
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 0.1875rem solid var(--color-gold);
+  outline-offset: 0.1875rem;
+  box-shadow: 0 0 0 0.125rem var(--color-deep-forest);
+}
+
+.site-main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: clamp(1rem, 4vw, 2.5rem);
+  z-index: 60;
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  transform: translateY(calc(-100% - 1rem));
+  border-radius: 0.5rem;
+  background: white;
+  color: var(--color-deep-forest);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+:where(main, section, article, aside, footer) [id] {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --header-height: 5rem;
+  }
 }
