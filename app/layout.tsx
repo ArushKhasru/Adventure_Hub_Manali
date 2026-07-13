@@ -4,6 +4,7 @@ import {
   Bricolage_Grotesque,
 } from "next/font/google";
 import Footer from "@/components/Footer";
+import RouteSplash from "@/components/RouteSplash";
 import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
 
@@ -63,6 +64,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <RouteSplash />
       </body>
     </html>
   );
