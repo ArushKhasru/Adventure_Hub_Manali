@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-const SPLASH_DURATION = 2000;
+const SPLASH_DURATION = 1000;
 const EXIT_DURATION = 200;
 
 type Scene = "rafting" | "paragliding";
