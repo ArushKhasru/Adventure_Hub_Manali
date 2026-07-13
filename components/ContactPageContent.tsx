@@ -1,16 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  ArrowUpRight,
-  Check,
-  Compass,
-  Clock3,
-  Copy,
-  MapPinned,
-  MessageCircle,
-  Phone,
-} from "lucide-react";
+import Icons from "@/components/Icons";
+
 
 const tripStyles = [
   "A slow family escape",
@@ -168,7 +160,7 @@ export default function ContactPageContent() {
           <div className="relative rounded-[1.75rem] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-sm sm:p-6">
             <div className="flex items-start gap-3">
               <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-gold)] text-[var(--color-ink)] shadow-lg">
-                <MapPinned aria-hidden="true" className="size-5" />
+                <Icons.MapPinned aria-hidden="true" className="size-5" />
               </span>
               <div>
                 <p className="font-display text-xl font-bold">No fixed itinerary? Perfect.</p>
@@ -212,7 +204,7 @@ export default function ContactPageContent() {
 
           <div className="mt-8 rounded-2xl border border-[var(--color-mint)] bg-[var(--color-forest-wash)] p-5 text-[var(--color-deep-forest)]">
             <div className="flex gap-3">
-              <Clock3 aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
+              <Icons.Clock3 aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
               <div>
                 <p className="font-bold">Call or WhatsApp when you&apos;re ready</p>
                 <p className="mt-1 text-sm leading-6 text-[var(--color-muted-slate)]">
@@ -234,7 +226,7 @@ export default function ContactPageContent() {
             />
             <div className="relative flex h-full flex-col">
               <span className="inline-flex size-11 items-center justify-center rounded-2xl bg-white/10 text-[var(--color-mint)]">
-                <Compass aria-hidden="true" className="size-5" />
+                <Icons.Compass aria-hidden="true" className="size-5" />
               </span>
               <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-mint)]">
                 Your route, your pace
@@ -277,7 +269,7 @@ export default function ContactPageContent() {
               </p>
             </div>
             <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-forest-wash)] text-[var(--color-forest)]">
-              <MapPinned aria-hidden="true" className="size-5" />
+              <Icons.MapPinned aria-hidden="true" className="size-5" />
             </span>
           </div>
 
@@ -302,7 +294,7 @@ export default function ContactPageContent() {
                   >
                     <span className="flex items-start justify-between gap-2">
                       <span>{style}</span>
-                      {selected && <Check aria-hidden="true" className="size-4 shrink-0" />}
+                      {selected && <Icons.Check aria-hidden="true" className="size-4 shrink-0" />}
                     </span>
                   </button>
                 );
@@ -376,9 +368,9 @@ export default function ContactPageContent() {
               >
                 {copyState === "copied" ? "Brief copied" : "Copy my trip brief"}
                 {copyState === "copied" ? (
-                  <Check aria-hidden="true" className="size-4" />
+                  <Icons.Check aria-hidden="true" className="size-4" />
                 ) : (
-                  <Copy aria-hidden="true" className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                  <Icons.Copy aria-hidden="true" className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" />
                 )}
               </button>
               <button
@@ -390,7 +382,7 @@ export default function ContactPageContent() {
                 className="inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl bg-[var(--color-forest)] px-5 py-3 text-center text-sm font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--color-deep-forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-[var(--color-muted-slate)] disabled:text-white/70 disabled:opacity-55 disabled:hover:translate-y-0 motion-reduce:transition-none"
               >
                 Send postcard on WhatsApp
-                <MessageCircle aria-hidden="true" className="size-4" />
+                <Icons.WhatsAppIcon aria-hidden="true" className="size-4" />
               </button>
             </div>
           </div>
@@ -420,7 +412,7 @@ export default function ContactPageContent() {
               className="group flex min-h-28 items-center gap-4 rounded-2xl border border-[var(--color-mint)] bg-white p-5 text-inherit no-underline transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(30,77,58,0.1)] motion-reduce:transition-none"
             >
               <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-deep-forest)] text-white transition-transform duration-200 group-hover:rotate-[-8deg] motion-reduce:transition-none">
-                <MessageCircle aria-hidden="true" className="size-5" />
+                <Icons.WhatsAppIcon aria-hidden="true" className="size-5" />
               </span>
               <div>
                 <p className="font-bold text-[var(--color-deep-forest)]">WhatsApp</p>
@@ -432,7 +424,7 @@ export default function ContactPageContent() {
               className="group flex min-h-28 items-center gap-4 rounded-2xl border border-[var(--color-mint)] bg-white p-5 text-inherit no-underline transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(30,77,58,0.1)] motion-reduce:transition-none"
             >
               <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-deep-forest)] text-white transition-transform duration-200 group-hover:rotate-[8deg] motion-reduce:transition-none">
-                <Phone aria-hidden="true" className="size-5" />
+                <Icons.Phone aria-hidden="true" className="size-5" />
               </span>
               <div>
                 <p className="font-bold text-[var(--color-deep-forest)]">Call the team</p>
@@ -449,7 +441,7 @@ export default function ContactPageContent() {
               className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-[var(--color-deep-forest)] px-5 py-3 text-sm font-bold text-white no-underline transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--color-forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)] focus-visible:ring-offset-2 motion-reduce:transition-none"
             >
               Not sure yet? Contact us directly
-              <MessageCircle aria-hidden="true" className="size-4" />
+              <Icons.MessageCircle aria-hidden="true" className="size-4" />
             </a>
             <a
               href="#brief-title"
@@ -460,7 +452,7 @@ export default function ContactPageContent() {
               className="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[var(--color-deep-forest)] no-underline transition-colors hover:text-[var(--color-forest)]"
             >
               Return to your trip brief
-              <ArrowUpRight aria-hidden="true" className="size-4" />
+              <Icons.ArrowUpRight aria-hidden="true" className="size-4" />
             </a>
           </div>
         </div>

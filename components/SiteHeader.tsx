@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import Icons from "@/components/Icons";
+
 const navigationLinks = [
   { href: "/", label: "Home" },
   { href: "/activities", label: "Activities" },
@@ -261,12 +263,12 @@ export default function SiteHeader() {
                   >
                     <span>{link.label}</span>
 
-                    <span
+                    <Icons.ArrowRight
                       aria-hidden="true"
-                      className={isActive ? "opacity-100" : "opacity-50"}
-                    >
-                      →
-                    </span>
+                      className={`size-4 ${
+                        isActive ? "opacity-100" : "opacity-50"
+                      }`}
+                    />
                   </Link>
                 </li>
               );
