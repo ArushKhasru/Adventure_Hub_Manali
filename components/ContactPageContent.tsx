@@ -10,7 +10,6 @@ import {
   MapPinned,
   MessageCircle,
   Phone,
-  Sparkles,
 } from "lucide-react";
 
 const tripStyles = [
@@ -153,13 +152,9 @@ export default function ContactPageContent() {
 
         <div className="relative mx-auto grid w-full max-w-[76rem] gap-10 px-[clamp(1.25rem,4vw,2.5rem)] pb-14 pt-16 sm:pb-20 sm:pt-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16 lg:pb-24 lg:pt-28">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold tracking-wide text-[var(--color-mint)]">
-              <Sparkles aria-hidden="true" className="size-3.5" />
-              The trip-start desk
-            </p>
             <h1
               id="contact-title"
-              className="mt-5 max-w-[10ch] font-display text-[clamp(3.2rem,7vw,5.8rem)] font-extrabold leading-[0.91] tracking-[-0.055em]"
+              className="max-w-[10ch] font-display text-[clamp(3.2rem,7vw,5.8rem)] font-extrabold leading-[0.91] tracking-[-0.055em]"
             >
               Let&apos;s put your mountain plan on the map.
             </h1>
