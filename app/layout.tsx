@@ -6,6 +6,7 @@ import {
 import Footer from "@/components/Footer";
 import RouteSplash from "@/components/RouteSplash";
 import SiteHeader from "@/components/SiteHeader";
+import WelcomeSplash from "@/components/WelcomeSplash";
 import "./globals.css";
 
 const displayFont = Bricolage_Grotesque({
@@ -65,6 +66,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <RouteSplash />
+        <WelcomeSplash />
       </body>
     </html>
   );
