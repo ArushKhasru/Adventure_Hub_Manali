@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   motion,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -36,12 +37,14 @@ const slides = [
 ] as const;
 
 const AUTOPLAY_INTERVAL = 6500;
+const SLIDE_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLElement | null>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
 
   /*
    * 0 = top of hero
@@ -140,11 +143,15 @@ export default function HeroSection() {
       >
         {/* Full-screen image slider */}
         <div className="absolute inset-0">
-          <div
-            className="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
-            style={{
-              transform: `translate3d(-${activeIndex * 100}%, 0, 0)`,
-            }}
+          <motion.div
+            initial={false}
+            animate={{ x: `-${activeIndex * 100}%` }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 0.95, ease: SLIDE_EASE }
+            }
+            className="flex h-full w-full will-change-transform"
           >
             {slides.map((slide, index) => (
               <div
@@ -156,14 +163,15 @@ export default function HeroSection() {
                   src={slide.src}
                   alt={slide.title}
                   fill
-                  priority={index === 0}
+                  preload={index === 0}
+                  loading={index === 0 ? undefined : "eager"}
                   quality={90}
                   sizes="100vw"
                   className={`object-cover ${slide.position}`}
                 />
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Image overlays */}
