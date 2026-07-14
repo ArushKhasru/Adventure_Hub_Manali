@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Icons from "@/components/Icons";
 
@@ -25,27 +26,6 @@ const PHONE_DISPLAY = "0000000000";
 const directWhatsAppHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   "Hi Adventure Hub Manali! I am interested in planning a trip to Manali and would like some guidance. Can you help me get started?",
 )}`;
-
-function RouteLine() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 440 92"
-      className="h-auto w-full text-[var(--color-mint)]"
-      fill="none"
-    >
-      <path
-        d="M4 70C58 70 55 16 116 16c59 0 60 54 120 54 64 0 57-42 115-42 30 0 47 17 85 17"
-        stroke="currentColor"
-        strokeDasharray="3 8"
-        strokeLinecap="round"
-        strokeWidth="3"
-      />
-      <circle cx="4" cy="70" r="5" fill="currentColor" />
-      <circle cx="436" cy="45" r="5" fill="currentColor" />
-    </svg>
-  );
-}
 
 export default function ContactPageContent() {
   const [tripStyle, setTripStyle] = useState<(typeof tripStyles)[number]>(
@@ -135,14 +115,27 @@ export default function ContactPageContent() {
       >
         <div
           aria-hidden="true"
-          className="absolute -left-24 top-16 size-64 rounded-full border border-white/10 sm:-left-14 sm:size-80"
+          className="absolute inset-0"
+        >
+          <Image
+            src="/images/home/hero-valley.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[54%_center]"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-[#092d22]/95 via-[#103e30]/78 to-[#0f392b]/38"
         />
         <div
           aria-hidden="true"
-          className="absolute -right-16 bottom-[-8rem] size-72 rounded-full border-[1.25rem] border-[var(--color-forest)]/70 sm:size-96"
+          className="absolute inset-0 bg-gradient-to-t from-[#092d22]/68 via-transparent to-[#092d22]/24"
         />
 
-        <div className="relative mx-auto grid w-full max-w-[76rem] gap-10 px-[clamp(1.25rem,4vw,2.5rem)] pb-14 pt-16 sm:pb-20 sm:pt-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16 lg:pb-24 lg:pt-28">
+        <div className="relative mx-auto grid min-h-[36rem] w-full max-w-[76rem] gap-10 px-[clamp(1.25rem,4vw,2.5rem)] pb-14 pt-16 sm:pb-20 sm:pt-24 lg:min-h-[42rem] lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16 lg:pb-24 lg:pt-28">
           <div>
             <h1
               id="contact-title"
@@ -157,7 +150,7 @@ export default function ContactPageContent() {
             </p>
           </div>
 
-          <div className="relative rounded-[1.75rem] border border-white/16 bg-white/8 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-sm sm:p-6">
+          <div className="relative rounded-[1.75rem] border border-white/22 bg-[#103e30]/52 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.24)] backdrop-blur-md sm:p-6">
             <div className="flex items-start gap-3">
               <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-gold)] text-[var(--color-ink)] shadow-lg">
                 <Icons.MapPinned aria-hidden="true" className="size-5" />
@@ -180,9 +173,6 @@ export default function ContactPageContent() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[76rem] px-[clamp(1.25rem,4vw,2.5rem)] pb-8 sm:pb-10">
-          <RouteLine />
-        </div>
       </section>
 
       <section className="relative mx-auto grid w-full max-w-[76rem] gap-10 px-[clamp(1.25rem,4vw,2.5rem)] py-14 sm:py-20 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16 lg:py-24" aria-labelledby="brief-title">
