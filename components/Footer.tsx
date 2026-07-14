@@ -89,6 +89,43 @@ function FooterMark() {
   );
 }
 
+function FooterForestMotion() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-44 overflow-hidden sm:h-56"
+    >
+      <svg viewBox="0 0 1440 240" preserveAspectRatio="none" className="size-full">
+        <path
+          d="M0 181 92 162l84 11 109-33 132 31 111-18 117 28 125-38 107 26 115-22 127 35 120-28 124 20v76H0Z"
+          fill="oklch(17% 0.045 164 / 0.64)"
+        />
+        <g fill="oklch(14% 0.04 164 / 0.9)">
+          <g>
+            <animateTransform className="motion-reduce:hidden" attributeName="transform" type="rotate" values="0 92 230;1.8 92 230;2.7 92 230;1.8 92 230;0 92 230" dur="8s" repeatCount="indefinite" />
+            <path d="M92 28c-4 25-15 42-30 60l18-4c-7 19-23 40-43 61l26-3c-12 17-25 32-42 47h57v41h27v-41h59c-19-17-34-34-46-49l24 4c-18-21-33-40-41-60l17 4C105 70 97 52 92 28Z" />
+          </g>
+          <g>
+            <animateTransform className="motion-reduce:hidden" attributeName="transform" type="rotate" values="0 334 232;1.4 334 232;2.1 334 232;1.4 334 232;0 334 232" dur="9.5s" begin="-2s" repeatCount="indefinite" />
+            <path d="M334 62c-5 22-16 39-29 57l17-3c-7 18-20 36-40 58l25-3c-11 16-23 31-37 48h50v13h27v-13h51c-16-18-29-34-39-49l24 4c-17-19-30-37-38-58l16 3c-14-19-22-36-26-57Z" />
+          </g>
+          <g>
+            <animateTransform className="motion-reduce:hidden" attributeName="transform" type="rotate" values="0 618 234;2 618 234;3 618 234;2 618 234;0 618 234" dur="8.5s" begin="-4s" repeatCount="indefinite" />
+            <path d="M618 11c-5 28-18 50-35 73l23-5c-9 24-27 51-49 77l31-4c-14 21-31 44-54 69h61v13h45v-13h62c-24-25-41-48-55-70l32 5c-23-27-40-53-49-77l23 5c-18-24-30-46-35-73Z" />
+          </g>
+          <g>
+            <animateTransform className="motion-reduce:hidden" attributeName="transform" type="rotate" values="0 948 232;1.6 948 232;2.5 948 232;1.6 948 232;0 948 232" dur="10s" begin="-1s" repeatCount="indefinite" />
+            <path d="M948 54c-4 22-15 42-29 61l18-4c-8 20-22 40-42 61l26-3c-12 18-25 34-41 50h50v13h36v-13h50c-18-19-31-36-42-52l26 4c-19-20-33-40-41-60l17 4c-14-19-24-38-28-61Z" />
+          </g>
+          <g>
+            <animateTransform className="motion-reduce:hidden" attributeName="transform" type="rotate" values="0 1242 234;1.5 1242 234;2.3 1242 234;1.5 1242 234;0 1242 234" dur="9s" begin="-5s" repeatCount="indefinite" />
+            <path d="M1242 20c-5 27-18 49-35 72l22-5c-9 24-26 49-49 75l30-4c-14 20-30 42-47 63h57v13h44v-13h57c-22-23-38-45-51-65l31 5c-22-26-39-51-48-74l21 5c-17-24-29-46-34-72Z" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+}
 type FooterColumnProps = {
   title: string;
   links: Array<{
@@ -269,6 +306,8 @@ export default function Footer() {
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-b from-[#07563f]/30 via-[#064d39]/45 to-[#032f25]/80"
       />
+
+      <FooterForestMotion />
 
       <div className="relative z-10 mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-10">
         <MobileFooter />
