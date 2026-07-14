@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactPageContent from "@/components/ContactPageContent";
+import PageLenis from "@/components/PageLenis";
 
 export const metadata: Metadata = {
   title: "Start your Manali plan",
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactPageContent />;
+  return (
+    <>
+      <PageLenis />
+      <ContactPageContent />
+    </>
+  );
 }
