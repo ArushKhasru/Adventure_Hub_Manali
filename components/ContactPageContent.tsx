@@ -350,6 +350,10 @@ export default function ContactPageContent() {
                 ? statusMessage
                 : "Complete the required fields to unlock your WhatsApp handoff."}
             </p>
+            <p className="mt-2 max-w-[46ch] text-xs leading-5 text-[var(--color-muted-slate)]">
+              Your details are safe with us. We never spam, sell, or share them.
+              You&apos;ll only hear from a real travel designer.
+            </p>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               <button
                 type="button"

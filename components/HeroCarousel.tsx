@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
@@ -16,22 +17,30 @@ import Icons from "@/components/Icons";
 const slides = [
   {
     src: "/images/home/hero-valley.webp",
-    title: "Explore the beauty of Manali",
+    title: "Your perfect mountain escape",
+    eyebrow: "Discover Manali",
+    description: "Comfy stays, easy travel and epic adventures.",
     position: "object-center",
   },
   {
     src: "/images/home/hero-family.webp",
-    title: "Create unforgettable memories",
+    title: "Make room for family memories",
+    eyebrow: "Time together",
+    description: "Easy-going days, scenic moments and fun for every age.",
     position: "object-[54%_center]",
   },
   {
     src: "/images/home/hero-adventure.webp",
-    title: "Experience thrilling adventures",
+    title: "Find your next mountain rush",
+    eyebrow: "Chase adventure",
+    description: "Choose the thrill, and we will help plan the rest.",
     position: "object-center",
   },
   {
     src: "/images/home/hero-stay.webp",
-    title: "Stay close to nature",
+    title: "Wake up closer to the mountains",
+    eyebrow: "Stay in Manali",
+    description: "Welcoming stays for a trip that feels just right.",
     position: "object-center",
   },
 ] as const;
@@ -45,6 +54,7 @@ export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const shouldReduceMotion = useReducedMotion();
+  const activeSlide = slides[activeIndex];
 
   /*
    * 0 = top of hero
@@ -193,18 +203,31 @@ export default function HeroSection() {
         {/* Hero content */}
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] items-center justify-center px-6 pb-28 pt-28 text-center sm:px-10 lg:px-16">
           <div className="max-w-4xl">
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-sm">
-              Discover Manali
-            </p>
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.32, ease: SLIDE_EASE }
+                }
+              >
+                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-sm">
+                  {activeSlide.eyebrow}
+                </p>
 
-            <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
-              Your perfect
-              <span className="block">mountain escape</span>
-            </h1>
+                <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
+                  {activeSlide.title}
+                </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-balance text-base leading-relaxed text-white/85 sm:text-lg lg:text-xl">
-              Comfy stays, easy travels and epic adventures.
-            </p>
+                <p className="mx-auto mt-6 max-w-2xl text-balance text-base leading-relaxed text-white/85 sm:text-lg lg:text-xl">
+                  {activeSlide.description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             <Link
               href="/contact"
