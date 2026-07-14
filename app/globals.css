@@ -125,6 +125,232 @@ button {
   }
 }
 
+.welcome-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-deep-forest);
+  color: white;
+  animation: welcome-splash-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.welcome-splash-leaving {
+  animation: welcome-splash-exit 420ms cubic-bezier(0.7, 0, 0.84, 0) both;
+}
+
+.welcome-splash-image {
+  z-index: -3;
+  animation: welcome-image-reveal 3.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.welcome-splash-tint {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(110deg, oklch(22% 0.045 164 / 0.92), oklch(26% 0.06 164 / 0.72) 52%, oklch(22% 0.045 164 / 0.5)),
+    linear-gradient(to top, oklch(22% 0.045 164 / 0.76), transparent 55%);
+}
+
+.welcome-splash-glow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(1px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.welcome-splash-glow-one {
+  top: -14rem;
+  right: -9rem;
+  width: 34rem;
+  height: 34rem;
+  background: radial-gradient(circle, oklch(82.01% 0.0819 159.98 / 0.26), transparent 66%);
+  animation: welcome-glow-float 4.2s ease-in-out infinite alternate;
+}
+
+.welcome-splash-glow-two {
+  bottom: -18rem;
+  left: -12rem;
+  width: 40rem;
+  height: 40rem;
+  background: radial-gradient(circle, oklch(75.41% 0.0853 67.1 / 0.2), transparent 64%);
+  animation: welcome-glow-float 5s ease-in-out -1.3s infinite alternate-reverse;
+}
+
+.welcome-splash-content {
+  display: flex;
+  width: min(100%, 52rem);
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.welcome-splash-mark {
+  opacity: 0;
+  animation: welcome-content-rise 550ms 180ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-splash-kicker {
+  margin: 1.4rem 0 0;
+  color: var(--color-mint);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: welcome-content-rise 550ms 380ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-splash-title {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.15rem, 6.5vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.86;
+  opacity: 0;
+  animation: welcome-content-rise 700ms 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-splash-title span {
+  display: block;
+  color: var(--color-mint);
+}
+
+.welcome-splash-copy {
+  max-width: 35ch;
+  margin: 1.5rem 0 0;
+  color: rgb(255 255 255 / 0.8);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.65;
+  opacity: 0;
+  animation: welcome-content-rise 550ms 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-splash-content > svg {
+  max-height: 9rem;
+  margin-top: 0.85rem;
+  opacity: 0;
+  animation: welcome-content-rise 600ms 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-trail {
+  stroke: var(--color-mint);
+  stroke-width: 4;
+  stroke-dasharray: 7 13;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dashoffset: 380;
+  animation: welcome-trail-draw 1.55s 980ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-trail-start {
+  fill: var(--color-gold);
+  opacity: 0;
+  animation: welcome-dot-appear 260ms 1s ease-out forwards;
+}
+
+.welcome-trail-marker {
+  opacity: 0;
+  transform-origin: 366px 91px;
+  animation: welcome-marker-arrive 650ms 1.86s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.welcome-marker-ring {
+  fill: oklch(75.41% 0.0853 67.1 / 0.16);
+  stroke: var(--color-gold);
+  stroke-width: 2;
+}
+
+.welcome-marker-core {
+  fill: var(--color-gold);
+}
+
+@keyframes welcome-splash-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes welcome-splash-exit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes welcome-image-reveal {
+  from {
+    filter: saturate(0.76) brightness(0.72);
+    transform: scale(1.1);
+  }
+  to {
+    filter: saturate(1) brightness(0.92);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes welcome-glow-float {
+  to { transform: translate3d(-1.5rem, 1rem, 0) scale(1.06); }
+}
+
+@keyframes welcome-content-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes welcome-trail-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes welcome-dot-appear {
+  to { opacity: 1; }
+}
+
+@keyframes welcome-marker-arrive {
+  0% {
+    opacity: 0;
+    transform: translate(-46px, 42px) scale(0.3);
+  }
+  72% { transform: translate(4px, -4px) scale(1.1); }
+  100% {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-splash,
+  .welcome-splash-leaving,
+  .welcome-splash-image,
+  .welcome-splash-glow-one,
+  .welcome-splash-glow-two,
+  .welcome-splash-mark,
+  .welcome-splash-kicker,
+  .welcome-splash-title,
+  .welcome-splash-copy,
+  .welcome-splash-content > svg,
+  .welcome-trail,
+  .welcome-trail-start,
+  .welcome-trail-marker {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (min-width: 64rem) {
   :root {
     --header-height: 5rem;
