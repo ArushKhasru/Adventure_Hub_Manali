@@ -168,6 +168,121 @@ button {
   }
 }
 
+.travel-hero-halo {
+  animation: travel-halo-drift 8s ease-in-out infinite alternate;
+}
+
+.travel-stop-card {
+  transform-style: preserve-3d;
+  will-change: opacity, transform;
+}
+
+.travel-orbit {
+  animation: travel-orbit 7s ease-in-out infinite alternate;
+}
+
+.photo-lightbox {
+  animation: photo-lightbox-fade 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.photo-lightbox-panel {
+  animation: photo-lightbox-panel-enter 560ms 55ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.photo-lightbox-photo {
+  animation: photo-lightbox-image-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.travel-orbit-mint,
+.travel-icon-mint {
+  border-color: color-mix(in oklab, var(--color-mint) 70%, white);
+  background: var(--color-forest-wash);
+}
+
+.travel-orbit-gold,
+.travel-icon-gold {
+  border-color: color-mix(in oklab, var(--color-gold) 65%, white);
+  background: color-mix(in oklab, var(--color-gold) 22%, white);
+}
+
+.travel-orbit-coral,
+.travel-icon-coral {
+  border-color: color-mix(in oklab, var(--color-gold) 65%, var(--color-deep-forest));
+  background: color-mix(in oklab, var(--color-gold) 38%, white);
+}
+
+.travel-orbit-sky,
+.travel-icon-sky {
+  border-color: color-mix(in oklab, var(--color-mint) 54%, var(--color-deep-forest));
+  background: color-mix(in oklab, var(--color-mint) 34%, white);
+}
+
+@keyframes travel-halo-drift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-7deg);
+  }
+
+  to {
+    transform: translate3d(2.25rem, 1.5rem, 0) rotate(7deg);
+  }
+}
+
+@keyframes travel-orbit {
+  from {
+    transform: rotate(-9deg) scale(0.94);
+  }
+
+  to {
+    transform: rotate(9deg) scale(1.05);
+  }
+}
+
+@keyframes photo-lightbox-fade {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(0.75rem);
+  }
+}
+
+@keyframes photo-lightbox-panel-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes photo-lightbox-image-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-hero-halo,
+  .travel-orbit,
+  .photo-lightbox,
+  .photo-lightbox-panel,
+  .photo-lightbox-photo {
+    animation: none;
+  }
+}
+
 .welcome-splash {
   position: fixed;
   inset: 0;
