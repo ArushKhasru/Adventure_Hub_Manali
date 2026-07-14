@@ -249,13 +249,13 @@ const discoveryCards: DiscoveryCard[] = [
 
 const contactOptions: ContactOption[] = [
   {
-    href: "/contact?method=whatsapp",
+    href: "/contact",
     title: "WhatsApp",
     description: "Chat with us on WhatsApp",
     icon: "WhatsAppIcon",
   },
   {
-    href: "/contact?method=call",
+    href: "/contact",
     title: "Call us",
     description: "Speak with our travel experts",
     icon: "Phone",
@@ -987,76 +987,65 @@ function ContactStrip() {
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{
-          once: true,
-          amount: 0.2,
-        }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="grid lg:grid-cols-[1.15fr_2.85fr]">
-          <div className="flex flex-col justify-center border-b border-[#dcebe3] px-7 py-7 sm:px-9 lg:border-b-0 lg:border-r">
+          <div className="flex flex-col items-center border-b border-[#dcebe3] px-6 py-8 text-center sm:items-start sm:justify-center sm:px-9 sm:py-7 sm:text-left lg:border-b-0 lg:border-r">
             <h2
               id="contact-strip-title"
-              className="text-2xl font-bold leading-[1.08] tracking-[-0.035em] text-[#07563f]"
+              className="text-[1.7rem] font-bold leading-[1.15] tracking-[-0.03em] text-[#07563f] sm:text-2xl sm:leading-[1.08] sm:tracking-[-0.035em]"
             >
               Let&apos;s plan your
               <span className="block">Manali adventure</span>
             </h2>
-
-            <p className="mt-2 text-sm text-[#536b61]">
+            <p className="mt-2.5 text-sm text-[#536b61]">
               We&apos;re just a message away.
             </p>
           </div>
 
           <motion.div
-            className="grid sm:grid-cols-3"
+            className="flex items-center justify-center gap-6 bg-[#f7fbf9] px-7 py-6 sm:grid sm:grid-cols-3 sm:gap-0 sm:bg-white sm:px-0 sm:py-0"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{
-              once: true,
-            }}
+            viewport={{ once: true }}
           >
             {contactOptions.map((option, index) => (
               <motion.div
                 key={option.title}
                 variants={fadeIn}
-                whileHover={{
-                  backgroundColor: "#f2faf6",
-                }}
+                whileHover={{ backgroundColor: "#f2faf6" }}
                 className={
                   index < contactOptions.length - 1
-                    ? "border-b border-[#dcebe3] sm:border-b-0 sm:border-r"
+                    ? "sm:border-r sm:border-[#dcebe3]"
                     : ""
                 }
               >
                 <Link
                   href={option.href}
-                  className="group flex min-h-[8.5rem] items-center gap-4 px-6 py-6 text-[#07563f] no-underline"
+                  className="group flex flex-col items-center gap-1.5 text-[#07563f] no-underline sm:min-h-[8.5rem] sm:flex-row sm:justify-start sm:gap-4 sm:px-6 sm:py-6"
                 >
                   <motion.span
-                    className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[#07563f] text-white"
-                    whileHover={{
-                      scale: 1.1,
-                      rotate: -5,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 320,
-                      damping: 18,
-                    }}
+                    className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[#07563f] text-white shadow-[0_6px_14px_rgba(7,86,63,0.25)] sm:shadow-none"
+                    whileHover={{ scale: 1.1, rotate: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 320, damping: 18 }}
                   >
                     <AppIcon
                       name={option.icon}
-                      className="size-[1.35rem]"
+                      className="size-[1.3rem]"
                       strokeWidth={1.8}
                     />
                   </motion.span>
 
-                  <span>
+                  <span className="text-[11px] font-semibold text-[#07563f] sm:hidden">
+                    {option.title}
+                  </span>
+
+                  <span className="hidden sm:block">
                     <strong className="block text-sm font-bold">
                       {option.title}
                     </strong>
-
                     <span className="mt-1 block max-w-[16ch] text-xs leading-4 text-[#536b61]">
                       {option.description}
                     </span>
