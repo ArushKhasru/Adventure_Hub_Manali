@@ -1,6 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Icons from "@/components/Icons";
+
+
+
 type RouteHoldingPageProps = {
   title: string;
   intro: string;
@@ -11,23 +15,6 @@ type RouteHoldingPageProps = {
   primaryHref?: string;
   primaryLabel?: string;
 };
-
-function ArrowIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7 17 17 7M9 7h8v8" />
-    </svg>
-  );
-}
 
 export default function RouteHoldingPage({
   title,
@@ -59,7 +46,11 @@ export default function RouteHoldingPage({
                 className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-[var(--color-gold)] px-6 py-3 font-bold text-[var(--color-ink)] no-underline transition hover:-translate-y-0.5 hover:bg-white motion-reduce:transition-none"
               >
                 {primaryLabel}
-                <ArrowIcon />
+                <Icons.ArrowUpRight
+                  aria-hidden="true"
+                  className="size-5"
+                  strokeWidth={2}
+                />
               </Link>
               <Link
                 href="/"
@@ -101,7 +92,7 @@ export default function RouteHoldingPage({
             {points.map((point) => (
               <li key={point} className="flex min-h-20 items-center gap-4 py-4 text-lg font-bold text-[var(--color-deep-forest)]">
                 <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-forest-wash)]" aria-hidden="true">
-                  ✓
+                  <Icons.Check className="size-5" strokeWidth={2.5} />
                 </span>
                 {point}
               </li>

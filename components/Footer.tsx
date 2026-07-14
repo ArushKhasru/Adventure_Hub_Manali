@@ -1,4 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
+
+import Icons from "@/components/Icons";
 
 const exploreLinks = [
   { href: "/", label: "Home" },
@@ -30,6 +33,12 @@ const companyLinks = [
   { href: "/careers", label: "Careers" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact Us" },
+];
+
+const mobileLinks = [
+  { href: "/", label: "Home" },
+  { href: "/activities", label: "Explore tours" },
+  { href: "/contact", label: "Contact" },
 ];
 
 function FooterMark() {
@@ -80,67 +89,6 @@ function FooterMark() {
   );
 }
 
-function InstagramIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function FacebookIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-4"
-      fill="currentColor"
-    >
-      <path d="M14 8h3V4.4A17 17 0 0 0 14.4 4C11.8 4 10 5.6 10 8.6V11H7v4h3v6h4v-6h3l.5-4H14V8Z" />
-    </svg>
-  );
-}
-
-function YoutubeIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-4"
-      fill="currentColor"
-    >
-      <path d="M21 8.2a3 3 0 0 0-2.1-2.1C17.1 5.6 12 5.6 12 5.6s-5.1 0-6.9.5A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.8.5 6.9.5 6.9.5s5.1 0 6.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8ZM10 15.3V8.7l5.7 3.3-5.7 3.3Z" />
-    </svg>
-  );
-}
-
-function WhatsAppIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5.2 18.6 3.7 21l4.1-1.1A8.7 8.7 0 1 0 3 12a8.6 8.6 0 0 0 2.2 5.8" />
-      <path d="M8.3 7.8c.6 3.5 2.4 5.6 5.9 7.1" />
-    </svg>
-  );
-}
-
 type FooterColumnProps = {
   title: string;
   links: Array<{
@@ -159,7 +107,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
           <li key={`${link.href}-${link.label}`}>
             <Link
               href={link.href}
-              className="inline-flex py-0.5 text-xs leading-5 text-white/72 no-underline transition-colors hover:text-white"
+              className="inline-flex py-0.5 text-xs leading-5 text-white/75 no-underline transition-colors duration-300 hover:text-white"
             >
               {link.label}
             </Link>
@@ -170,78 +118,179 @@ function FooterColumn({ title, links }: FooterColumnProps) {
   );
 }
 
+function SocialLinks() {
+  const sharedClassName =
+    "inline-flex size-9 items-center justify-center rounded-full border border-white/35 text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-[#07563f]";
+
+  return (
+    <div className="flex items-center gap-2">
+      <a
+        href="#"
+        aria-label="Instagram"
+        className={sharedClassName}
+      >
+        <Icons.InstagramIcon
+          aria-hidden="true"
+          className="size-4"
+        />
+      </a>
+
+      <a
+        href="#"
+        aria-label="Facebook"
+        className={sharedClassName}
+      >
+        <Icons.FacebookIcon
+          aria-hidden="true"
+          className="size-4"
+        />
+      </a>
+
+      <a
+        href="#"
+        aria-label="YouTube"
+        className={sharedClassName}
+      >
+        <Icons.YouTubeIcon
+          aria-hidden="true"
+          className="size-4"
+        />
+      </a>
+
+      <Link
+        href="/contact?method=whatsapp"
+        aria-label="WhatsApp"
+        className={sharedClassName}
+      >
+        <Icons.WhatsAppIcon
+          aria-hidden="true"
+          className="size-4"
+        />
+      </Link>
+    </div>
+  );
+}
+
+function MobileFooter() {
+  return (
+    <div className="pb-7 md:hidden">
+      <div className="flex flex-col items-center text-center">
+        <FooterMark />
+
+        <p className="mt-4 max-w-[30ch] text-xs leading-5 text-white/75">
+          Simple stays, travel, and adventures for your Manali trip.
+        </p>
+
+        <nav
+          className="mt-5"
+          aria-label="Mobile footer navigation"
+        >
+          <ul className="flex flex-wrap items-center justify-center gap-2">
+            {mobileLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/25 bg-white/5 px-4 py-2 text-xs font-medium text-white no-underline backdrop-blur-sm transition duration-300 hover:border-white/60 hover:bg-white hover:text-[#07563f]"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mt-5">
+          <SocialLinks />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DesktopFooter() {
+  return (
+    <div className="hidden grid-cols-[1.35fr_0.75fr_1fr_1fr_0.9fr] gap-8 pb-10 md:grid">
+      <div>
+        <FooterMark />
+
+        <p className="mt-4 max-w-[26ch] text-xs leading-5 text-white/75">
+          Your friendly travel companion for memorable stays, exciting
+          journeys, and budget-friendly adventures in the Himalayas.
+        </p>
+
+        <div className="mt-5">
+          <SocialLinks />
+        </div>
+      </div>
+
+      <FooterColumn
+        title="Explore"
+        links={exploreLinks}
+      />
+
+      <FooterColumn
+        title="Top Activities"
+        links={activityLinks}
+      />
+
+      <FooterColumn
+        title="Travel Info"
+        links={travelLinks}
+      />
+
+      <FooterColumn
+        title="Company"
+        links={companyLinks}
+      />
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="relative z-10 bg-[#07563f] pt-28 text-white sm:pt-32 lg:pt-36">
-      <div className="mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-10">
-        <div className="grid gap-10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_1fr_1fr_0.9fr] lg:gap-8">
-          <div>
-            <FooterMark />
+    <footer className="relative z-10 overflow-hidden pt-20 text-white sm:pt-28 lg:pt-36">
+      {/* Footer background */}
+      <Image
+        src="/images/footer.png"
+        alt=""
+        fill
+        sizes="100vw"
+        quality={88}
+        className="object-cover object-center"
+      />
 
-            <p className="mt-4 max-w-[26ch] text-xs leading-5 text-white/72">
-              Your friendly travel companion for memorable stays, exciting
-              journeys, and budget-friendly adventures in the Himalayas.
+      {/* Readability overlay */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-black/35"
+      />
+
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-[#07563f]/30 via-[#064d39]/45 to-[#032f25]/80"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-10">
+        <MobileFooter />
+        <DesktopFooter />
+
+        <div className="border-t border-white/25">
+          <div className="flex min-h-14 flex-col items-center justify-center gap-2 py-4 text-center text-[11px] text-white/70 md:flex-row md:justify-between md:text-left">
+            <p>
+              © 2026 Adventure Hub Manali. All rights reserved.
             </p>
 
-            <div className="mt-5 flex items-center gap-2">
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="inline-flex size-8 items-center justify-center rounded-full border border-white/35 text-white transition hover:border-white hover:bg-white hover:text-[#07563f]"
-              >
-                <InstagramIcon />
-              </a>
-
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="inline-flex size-8 items-center justify-center rounded-full border border-white/35 text-white transition hover:border-white hover:bg-white hover:text-[#07563f]"
-              >
-                <FacebookIcon />
-              </a>
-
-              <a
-                href="#"
-                aria-label="YouTube"
-                className="inline-flex size-8 items-center justify-center rounded-full border border-white/35 text-white transition hover:border-white hover:bg-white hover:text-[#07563f]"
-              >
-                <YoutubeIcon />
-              </a>
-
-              <Link
-                href="/contact?method=whatsapp"
-                aria-label="WhatsApp"
-                className="inline-flex size-8 items-center justify-center rounded-full border border-white/35 text-white transition hover:border-white hover:bg-white hover:text-[#07563f]"
-              >
-                <WhatsAppIcon />
-              </Link>
-            </div>
-          </div>
-
-          <FooterColumn title="Explore" links={exploreLinks} />
-
-          <FooterColumn title="Top Activities" links={activityLinks} />
-
-          <FooterColumn title="Travel Info" links={travelLinks} />
-
-          <FooterColumn title="Company" links={companyLinks} />
-        </div>
-
-        <div className="border-t border-white/20">
-          <div className="flex min-h-14 flex-col justify-center gap-2 py-4 text-[11px] text-white/65 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 Adventure Hub Manali. All rights reserved.</p>
-
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
               <Link
                 href="/privacy"
-                className="transition-colors hover:text-white"
+                className="transition-colors duration-300 hover:text-white"
               >
                 Privacy Policy
               </Link>
 
               <Link
                 href="/terms"
-                className="transition-colors hover:text-white"
+                className="transition-colors duration-300 hover:text-white"
               >
                 Terms &amp; Conditions
               </Link>
