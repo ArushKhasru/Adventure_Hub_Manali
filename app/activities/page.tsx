@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import PageLenis from "@/components/PageLenis";
+import ActivityFilters from "@/components/ActivityFilters";
 import ActivityScrollReveal from "@/components/ActivityScrollReveal";
 import {
   CalendarX2,
@@ -235,6 +236,7 @@ function ActivityCard({
   return (
     <article
       id={id}
+      data-activity={id}
       className="group relative flex min-w-0 scroll-mt-28 flex-col overflow-hidden rounded-[1.5rem] border border-[oklch(90%_0.025_160)] bg-white shadow-[0_16px_45px_rgba(30,77,58,0.08)] transition-shadow duration-300 hover:shadow-[0_24px_55px_rgba(30,77,58,0.14)] motion-reduce:transition-none"
     >
       <span
@@ -326,7 +328,7 @@ function ActivityCard({
               }}
               className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[var(--color-forest)] bg-white px-4 py-3 text-center text-sm font-bold text-[var(--color-deep-forest)] no-underline transition-colors duration-200 hover:bg-[var(--color-forest-wash)] motion-reduce:transition-none"
             >
-              Plan Custom Trip
+              Add to Trip Cart
             </Link>
           </div>
         </div>
@@ -411,7 +413,9 @@ export default function ActivitiesPage() {
             </p>
           </header>
 
-          <div className="mt-10 grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <ActivityFilters />
+
+          <div id="activities-grid" className="mt-8 grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
             {activities.map((activity, index) => (
               <ActivityScrollReveal key={activity.id} delay={index * 0.08}>
                 <ActivityCard activity={activity} />
