@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomePageContent from "@/components/HomePageContent";
+import PageLenis from "@/components/PageLenis";
 
 export const metadata: Metadata = {
   title: "Adventure Hub Manali",
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <HomePageContent />;
+  return (
+    <>
+      <PageLenis />
+      <HomePageContent />
+    </>
+  );
 }
