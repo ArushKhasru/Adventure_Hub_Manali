@@ -84,6 +84,81 @@ const stops = [
   },
 ] as const;
 
+const arrivalRoutes = [
+  {
+    label: "The long-view ride",
+    mode: "By road",
+    icon: Icons.Bus,
+    title: "Let the valley arrive slowly.",
+    detail:
+      "Regular bus and private-taxi connections reach Manali from the plains, with the scenery doing more of the talking as the road climbs.",
+    fact: "Delhi · 530 km",
+    subfact: "Chandigarh · 300 km",
+    accent: "bg-[var(--color-gold)]",
+  },
+  {
+    label: "The quick landing",
+    mode: "By air",
+    icon: Icons.Plane,
+    title: "Land, then follow the Beas.",
+    detail:
+      "Bhuntar is the closest airport to Manali. From there, taxis and buses cover the final mountain stretch into town.",
+    fact: "Bhuntar · about 50 km",
+    subfact: "Final leg by road",
+    accent: "bg-[var(--color-mint)]",
+  },
+  {
+    label: "The rail-and-road mix",
+    mode: "By rail",
+    icon: Icons.TrainFront,
+    title: "Make the last leg part of it.",
+    detail:
+      "Rail gets you close to the hills, then a road transfer completes the journey. It is a slower route with a worthwhile change of scenery.",
+    fact: "Pathankot to Joginder Nagar",
+    subfact: "Continue by road",
+    accent: "bg-[#8bb7eb]",
+  },
+] as const;
+
+const seasons = [
+  {
+    label: "March – June",
+    name: "Spring & summer",
+    icon: Icons.SunMedium,
+    tone: "from-[#f5cf80] via-[#f9e7bb] to-[#d7efd8]",
+    text: "Longer days, green slopes, and a welcome break from the plains heat.",
+    planning: "Light layers still matter after sunset.",
+    signal: "Sunny valley days",
+  },
+  {
+    label: "July – September",
+    name: "Monsoon",
+    icon: Icons.CloudRain,
+    tone: "from-[#8cc6c2] via-[#cfeee5] to-[#d8e2f2]",
+    text: "A misty, intensely green valley with weather that can change the plan quickly.",
+    planning: "Keep routes flexible and check local road conditions.",
+    signal: "Misty mountain mood",
+  },
+  {
+    label: "October – November",
+    name: "Golden autumn",
+    icon: Icons.Leaf,
+    tone: "from-[#e8b56e] via-[#f7dfad] to-[#d1ead7]",
+    text: "Crisper air, open views, and the gentle transition toward the colder months.",
+    planning: "Pack layers for bright days and cool evenings.",
+    signal: "Clearer ridge views",
+  },
+  {
+    label: "December – February",
+    name: "Snowy winter",
+    icon: Icons.Snowflake,
+    tone: "from-[#90c8e7] via-[#dcecf8] to-[#e7f3ed]",
+    text: "Cold mountain days, a chance of snow, and a whole different pace around the valley.",
+    planning: "Carry proper woollens and confirm access before longer drives.",
+    signal: "Snow-season energy",
+  },
+] as const;
+
 type Stop = (typeof stops)[number];
 type Tilt = { x: number; y: number };
 
@@ -284,6 +359,198 @@ function PhotoLightbox({
         </div>
       </div>
     </div>
+  );
+}
+
+function ArrivalPlanner() {
+  const [activeRouteIndex, setActiveRouteIndex] = useState(0);
+  const activeRoute = arrivalRoutes[activeRouteIndex];
+  const ActiveIcon = activeRoute.icon;
+
+  return (
+    <section
+      aria-labelledby="arrival-title"
+      className="relative isolate overflow-hidden bg-[var(--color-deep-forest)] px-[clamp(1.25rem,4vw,2.5rem)] py-16 text-white sm:py-24"
+    >
+      <div aria-hidden="true" className="absolute -left-20 top-20 size-80 rounded-full border-[2rem] border-white/5" />
+      <div aria-hidden="true" className="absolute -right-24 bottom-[-10rem] size-[28rem] rounded-full border border-[var(--color-mint)]/20" />
+      <div className="relative mx-auto w-full max-w-[76rem]">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[var(--color-mint)]">
+              Before the first view
+            </p>
+            <h2
+              id="arrival-title"
+              className="mt-3 max-w-[12ch] font-display text-[clamp(2.7rem,5vw,4.5rem)] font-bold leading-[0.9] tracking-[-0.06em]"
+            >
+              Choose your way into the valley.
+            </h2>
+          </div>
+          <p className="max-w-[43ch] text-sm leading-7 text-white/72 sm:text-base">
+            Pick a route to reveal its travel note. Every approach finishes with a mountain-road stretch, so leave a little room in the plan.
+          </p>
+        </div>
+
+        <div className="mt-11 grid gap-4 lg:grid-cols-3">
+          {arrivalRoutes.map((route, index) => {
+            const Icon = route.icon;
+            const isActive = index === activeRouteIndex;
+
+            return (
+              <button
+                key={route.mode}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => setActiveRouteIndex(index)}
+                onFocus={() => setActiveRouteIndex(index)}
+                onMouseEnter={() => setActiveRouteIndex(index)}
+                className={`group relative overflow-hidden rounded-[1.6rem] border p-5 text-left transition-[transform,background-color,border-color,box-shadow] duration-500 motion-reduce:transition-none sm:p-6 ${
+                  isActive
+                    ? "-translate-y-2 border-white/40 bg-white text-[var(--color-deep-forest)] shadow-[0_24px_56px_rgba(0,0,0,0.25)]"
+                    : "border-white/15 bg-white/[0.07] text-white hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12]"
+                }`}
+              >
+                <div
+                  aria-hidden="true"
+                  className={`absolute -right-9 -top-9 size-28 rounded-full opacity-70 transition-transform duration-500 group-hover:scale-110 ${route.accent}`}
+                />
+                <div className="relative flex items-start justify-between gap-4">
+                  <span className={`inline-flex size-12 items-center justify-center rounded-2xl ${isActive ? "bg-[var(--color-deep-forest)] text-[var(--color-mint)]" : "bg-white/10 text-[var(--color-mint)]"}`}>
+                    <Icon aria-hidden="true" className="size-5" />
+                  </span>
+                  <span className={`rounded-full border px-3 py-1 text-[0.64rem] font-extrabold uppercase tracking-[0.16em] ${isActive ? "border-[var(--color-deep-forest)]/15 text-[var(--color-forest)]" : "border-white/20 text-white/72"}`}>
+                    {route.mode}
+                  </span>
+                </div>
+                <p className={`relative mt-9 text-xs font-extrabold uppercase tracking-[0.18em] ${isActive ? "text-[var(--color-forest)]" : "text-[var(--color-mint)]"}`}>
+                  {route.label}
+                </p>
+                <p className="relative mt-2 font-display text-2xl font-bold leading-[0.98] tracking-[-0.04em]">
+                  {route.title}
+                </p>
+                <div className={`relative mt-7 flex items-center justify-between border-t border-dashed pt-4 text-xs font-bold ${isActive ? "border-[var(--color-deep-forest)]/20 text-[var(--color-muted-slate)]" : "border-white/20 text-white/70"}`}>
+                  <span>{route.fact}</span>
+                  <Icons.ArrowUpRight aria-hidden="true" className={`size-4 transition-transform duration-300 ${isActive ? "translate-x-0.5 -translate-y-0.5" : ""}`} />
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-5 grid gap-5 rounded-[1.65rem] border border-white/15 bg-black/12 p-5 backdrop-blur-sm sm:grid-cols-[auto_1fr_auto] sm:items-center sm:p-6">
+          <span className={`inline-flex size-12 items-center justify-center rounded-2xl text-[var(--color-deep-forest)] ${activeRoute.accent}`}>
+            <ActiveIcon aria-hidden="true" className="size-5" />
+          </span>
+          <p className="text-sm leading-6 text-white/80 sm:text-base">
+            {activeRoute.detail}
+          </p>
+          <p className="rounded-full border border-white/20 px-3 py-1.5 text-center text-xs font-bold text-[var(--color-mint)]">
+            {activeRoute.subfact}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SeasonPlanner() {
+  const [activeSeasonIndex, setActiveSeasonIndex] = useState(2);
+  const activeSeason = seasons[activeSeasonIndex];
+  const SeasonIcon = activeSeason.icon;
+
+  return (
+    <section
+      aria-labelledby="season-title"
+      className="bg-[var(--color-soft-white)] px-[clamp(1.25rem,4vw,2.5rem)] py-16 sm:py-24"
+    >
+      <div className="mx-auto w-full max-w-[76rem]">
+        <div className="max-w-[43rem]">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[var(--color-forest)]">
+            The valley changes character
+          </p>
+          <h2
+            id="season-title"
+            className="mt-3 max-w-[12ch] font-display text-[clamp(2.7rem,5vw,4.5rem)] font-bold leading-[0.9] tracking-[-0.06em] text-[var(--color-deep-forest)]"
+          >
+            Find your kind of Manali.
+          </h2>
+          <p className="mt-5 max-w-[50ch] leading-7 text-[var(--color-muted-slate)]">
+            Tap a season—or simply move across the dial—to see what the valley feels like and how to plan for it.
+          </p>
+        </div>
+
+        <div className="mt-11 grid gap-7 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
+          <div role="tablist" aria-label="Manali seasons" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            {seasons.map((season, index) => {
+              const Icon = season.icon;
+              const isActive = index === activeSeasonIndex;
+
+              return (
+                <button
+                  key={season.name}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveSeasonIndex(index)}
+                  onFocus={() => setActiveSeasonIndex(index)}
+                  onMouseEnter={() => setActiveSeasonIndex(index)}
+                  className={`group flex min-h-20 items-center gap-4 rounded-[1.35rem] border p-4 text-left transition-[transform,background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none ${
+                    isActive
+                      ? "translate-x-2 border-[var(--color-deep-forest)] bg-[var(--color-deep-forest)] text-white shadow-[0_16px_32px_rgba(12,53,40,0.18)]"
+                      : "border-[var(--color-mint)] bg-white text-[var(--color-deep-forest)] hover:translate-x-1 hover:border-[var(--color-forest)]"
+                  }`}
+                >
+                  <span className={`inline-flex size-10 shrink-0 items-center justify-center rounded-xl ${isActive ? "bg-white/12 text-[var(--color-mint)]" : "bg-[var(--color-forest-wash)] text-[var(--color-forest)]"}`}>
+                    <Icon aria-hidden="true" className="size-[1.125rem]" />
+                  </span>
+                  <span>
+                    <span className={`block text-[0.65rem] font-extrabold uppercase tracking-[0.17em] ${isActive ? "text-[var(--color-mint)]" : "text-[var(--color-forest)]"}`}>
+                      {season.label}
+                    </span>
+                    <span className="mt-1 block font-display text-lg font-bold tracking-[-0.03em]">
+                      {season.name}
+                    </span>
+                  </span>
+                  <span aria-hidden="true" className={`ml-auto size-2.5 rounded-full transition-transform duration-300 ${isActive ? "scale-100 bg-[var(--color-gold)]" : "scale-75 bg-[var(--color-mint)]"}`} />
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            role="tabpanel"
+            className={`relative min-h-[25rem] overflow-hidden rounded-[2rem] bg-gradient-to-br ${activeSeason.tone} p-6 shadow-[0_24px_60px_rgba(12,53,40,0.12)] sm:p-9`}
+          >
+            <div aria-hidden="true" className="absolute -right-16 -top-16 size-64 rounded-full border-[1.7rem] border-white/45" />
+            <div aria-hidden="true" className="absolute -bottom-24 -left-16 size-64 rounded-full bg-[var(--color-deep-forest)]/10" />
+            <div aria-hidden="true" className="absolute bottom-14 right-12 size-20 rounded-full border border-dashed border-[var(--color-deep-forest)]/30" />
+            <div className="relative flex h-full flex-col">
+              <span className="inline-flex size-[3.25rem] items-center justify-center rounded-[1.35rem] bg-white/55 text-[var(--color-deep-forest)] shadow-sm backdrop-blur-sm">
+                <SeasonIcon aria-hidden="true" className="size-6" />
+              </span>
+              <p className="mt-8 text-xs font-extrabold uppercase tracking-[0.2em] text-[var(--color-forest)]">
+                {activeSeason.label}
+              </p>
+              <h3 className="mt-2 max-w-[12ch] font-display text-[clamp(2.8rem,5vw,4.6rem)] font-bold leading-[0.9] tracking-[-0.065em] text-[var(--color-deep-forest)]">
+                {activeSeason.name}
+              </h3>
+              <p className="mt-5 max-w-[42ch] text-base leading-7 text-[var(--color-deep-forest)]/78 sm:text-lg">
+                {activeSeason.text}
+              </p>
+              <div className="mt-auto grid gap-3 border-t border-[var(--color-deep-forest)]/15 pt-5 sm:grid-cols-2">
+                <p className="rounded-xl bg-white/38 px-4 py-3 text-sm font-bold text-[var(--color-deep-forest)] backdrop-blur-sm">
+                  {activeSeason.signal}
+                </p>
+                <p className="rounded-xl border border-white/50 bg-white/28 px-4 py-3 text-sm leading-6 text-[var(--color-deep-forest)]/78 backdrop-blur-sm">
+                  {activeSeason.planning}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -533,6 +800,9 @@ export default function TravelPageContent() {
           </div>
         </div>
       </section>
+
+      <ArrivalPlanner />
+      <SeasonPlanner />
 
       <section className="bg-[var(--color-deep-forest)] px-[clamp(1.25rem,4vw,2.5rem)] py-14 text-white sm:py-20" aria-labelledby="travel-cta-title">
         <div className="mx-auto grid w-full max-w-[76rem] gap-8 rounded-[2rem] border border-white/15 bg-white/5 p-6 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
