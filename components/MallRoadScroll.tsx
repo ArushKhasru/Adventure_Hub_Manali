@@ -7,6 +7,13 @@ const FRAME_PATH = "/images/manali-walk/frames/ezgif-frame-";
 const PRELOAD_AHEAD = 10;
 const PRELOAD_BEHIND = 3;
 
+const STORY_BEATS = [
+  { eyebrow: "Manali, at your pace", title: "Step into\nthe valley.", copy: "The road opens slowly - pine air, mountain light, and nowhere else to be." },
+  { eyebrow: "A little closer", title: "Let the day\nunfold.", copy: "Follow the movement of Mall Road, where warm cafes and small discoveries fill the hours." },
+  { eyebrow: "Keep wandering", title: "Find your\nfavourite turn.", copy: "A quiet lane, a view that makes you pause, a story worth taking home." },
+  { eyebrow: "Make it yours", title: "This is your\nmountain day.", copy: "Take the long way. Manali is ready whenever you are." },
+];
+
 function frameSrc(index: number) {
   return `${FRAME_PATH}${String(index + 1).padStart(3, "0")}.jpg`;
 }
@@ -15,6 +22,12 @@ export default function MallRoadScroll() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const storyRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const copyRef = useRef<HTMLParagraphElement>(null);
+  const chapterRef = useRef<HTMLParagraphElement>(null);
+  const finalMessageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -30,6 +43,30 @@ export default function MallRoadScroll() {
     let smoothedFrame = 0;
     let scrollAnimationFrame = 0;
     let motionAnimationFrame = 0;
+    let activeBeat = 0;
+
+    const updateStory = (progress: number) => {
+      const isAtLastFrame = progress >= 0.995;
+      storyRef.current?.classList.toggle("hidden", isAtLastFrame);
+      finalMessageRef.current?.classList.toggle("hidden", !isAtLastFrame);
+      if (isAtLastFrame) {
+        activeBeat = -1;
+        return;
+      }
+
+      const nextBeat = Math.min(STORY_BEATS.length - 1, Math.floor(progress * STORY_BEATS.length));
+      if (nextBeat === activeBeat) return;
+      activeBeat = nextBeat;
+      const beat = STORY_BEATS[nextBeat];
+      if (eyebrowRef.current) eyebrowRef.current.textContent = beat.eyebrow;
+      if (titleRef.current) titleRef.current.textContent = beat.title;
+      if (copyRef.current) copyRef.current.textContent = beat.copy;
+      if (chapterRef.current) chapterRef.current.textContent = `${String(nextBeat + 1).padStart(2, "0")} / ${String(STORY_BEATS.length).padStart(2, "0")}`;
+      storyRef.current?.animate(
+        [{ opacity: 0.35, transform: "translateY(8px)" }, { opacity: 1, transform: "translateY(0)" }],
+        { duration: 360, easing: "ease-out" },
+      );
+    };
 
     const drawCover = (image: HTMLImageElement) => {
       const width = canvas.width;
@@ -88,6 +125,7 @@ export default function MallRoadScroll() {
       const progress = Math.min(1, Math.max(0, -bounds.top / scrollLength));
       targetFrame = Math.round(progress * (FRAME_COUNT - 1));
       if (progressRef.current) progressRef.current.style.transform = `scaleY(${progress})`;
+      updateStory(progress);
       preloadAround(targetFrame);
       if (!motionAnimationFrame) motionAnimationFrame = window.requestAnimationFrame(easeFrame);
     };
@@ -114,11 +152,22 @@ export default function MallRoadScroll() {
 
   return (
     <section ref={wrapRef} aria-label="Scroll through Manali Mall Road" className="relative h-[400vh] bg-[#0b1f19]">
-      <div className="sticky top-0 h-screen overflow-hidden bg-[#0b1f19]">
-        <canvas ref={canvasRef} className="size-full" />
-        <div aria-hidden="true" className="absolute bottom-8 right-6 h-36 w-[3px] rounded-full bg-white/20 sm:right-8 sm:h-44">
-          <div ref={progressRef} className="h-full origin-top scale-y-0 rounded-full bg-[#e8a75d]" />
+      <div className="sticky top-0 grid h-screen grid-rows-[1fr_.82fr] overflow-hidden bg-[#0b1f19] md:grid-cols-2 md:grid-rows-1">
+        <div className="relative min-h-0 overflow-hidden">
+          <canvas ref={canvasRef} className="size-full" />
         </div>
+        <aside className="relative flex min-h-0 items-center bg-[#0b1f19] px-7 py-10 text-white sm:px-12 md:px-14 lg:px-[clamp(3.5rem,7vw,9rem)]">
+          <div ref={storyRef} className="max-w-[30rem]">
+            <p ref={chapterRef} className="text-xs font-extrabold tracking-[.22em] text-[#f1bc7d]">01 / 04</p>
+            <p ref={eyebrowRef} className="mt-7 text-xs font-bold uppercase tracking-[.2em] text-white/65">Manali, at your pace</p>
+            <h1 ref={titleRef} className="mt-4 whitespace-pre-line font-[family-name:var(--font-display)] text-5xl font-extrabold leading-[.88] tracking-[-.065em] text-white sm:text-6xl lg:text-7xl">Step into{`\n`}the valley.</h1>
+            <p ref={copyRef} className="mt-6 max-w-[38ch] text-pretty text-sm leading-6 text-white/75 sm:text-base sm:leading-7">The road opens slowly - pine air, mountain light, and nowhere else to be.</p>
+          </div>
+          <div ref={finalMessageRef} className="hidden max-w-[12ch] font-[family-name:var(--font-display)] text-6xl font-extrabold leading-[.86] tracking-[-.07em] text-white sm:text-7xl lg:text-8xl">Scroll down to move</div>
+          <div aria-hidden="true" className="absolute bottom-8 right-7 h-24 w-[3px] rounded-full bg-white/20 sm:right-12 md:right-14 lg:right-[clamp(3.5rem,7vw,9rem)]">
+            <div ref={progressRef} className="h-full origin-top scale-y-0 rounded-full bg-[#e8a75d]" />
+          </div>
+        </aside>
       </div>
     </section>
   );
