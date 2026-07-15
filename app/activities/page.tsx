@@ -38,6 +38,7 @@ function AppIcon({
 
 type Activity = {
   id: string;
+  filterId?: string;
   badge: string;
   badgeTone?: "default" | "winter";
   image: string;
@@ -61,14 +62,15 @@ type Activity = {
 
 const activities: Activity[] = [
   {
-    id: "paragliding",
+    id: "paragliding-solang-ropeway",
+    filterId: "paragliding",
     badge: "Best Seller",
     image: "/images/activities/para-gliding.png",
     alt: "Paraglider flying above a green Himalayan valley",
     status: "Weather Dependent (Wind Speed)",
     statusTone: "weather",
     statusIcon: "Wind",
-    title: "Paragliding (Solang Valley)",
+    title: "Paragliding High Fly with Ropeway – Solang Valley",
     description:
       "Soar high above the pine-filled valleys and witness the grand Himalayan peak vistas from a bird’s-eye view.",
     facts: [
@@ -87,8 +89,70 @@ const activities: Activity[] = [
     ],
     detailIcon: "Gauge",
     detail: "9,000 ft",
-    price: "₹1,300",
-    activityParam: "Paragliding",
+    price: "₹3,500",
+    activityParam: "Paragliding High Fly with Ropeway – Solang Valley",
+  },
+  {
+    id: "paragliding-dobhi-high-fly",
+    filterId: "paragliding",
+    badge: "High Fly",
+    image: "/images/activities/paragliding-dobhi-kullu.png",
+    alt: "Tandem paraglider flying above the Kullu valley near Dobhi",
+    status: "Weather Dependent (Wind Speed)",
+    statusTone: "weather",
+    statusIcon: "Wind",
+    title: "Paragliding High Fly in Dobhi (Kullu)",
+    description:
+      "Take the longer valley view from Dobhi, with a high Himalayan panorama unfolding beneath your tandem flight.",
+    facts: [
+      {
+        label: "Duration",
+        value: "15–25 minutes air flight",
+      },
+      {
+        label: "Location",
+        value: "Dobhi take-off point (Kullu)",
+      },
+      {
+        label: "Safety",
+        value: "Certified tandem pilots only",
+      },
+    ],
+    detailIcon: "Mountain",
+    detail: "High Valley Flight",
+    price: "₹3,000",
+    activityParam: "Paragliding High Fly in Dobhi (Kullu)",
+  },
+  {
+    id: "paragliding-solang-short-fly",
+    filterId: "paragliding",
+    badge: "Quick Fly",
+    image: "/images/activities/paragliding-solang-short-fly.png",
+    alt: "Tandem paragliders launching over the green meadows of Solang Valley",
+    status: "Weather Dependent (Wind Speed)",
+    statusTone: "weather",
+    statusIcon: "Wind",
+    title: "Paragliding Short Fly – Solang Valley",
+    description:
+      "A shorter, feel-good glide over Solang's open meadows—ideal when you want the rush with less time in the air.",
+    facts: [
+      {
+        label: "Duration",
+        value: "5–10 minutes air flight",
+      },
+      {
+        label: "Location",
+        value: "Solang Valley take-off point",
+      },
+      {
+        label: "Safety",
+        value: "Certified tandem pilots only",
+      },
+    ],
+    detailIcon: "Wind",
+    detail: "Short Valley Glide",
+    price: "₹1,000",
+    activityParam: "Paragliding Short Fly – Solang Valley",
   },
   {
     id: "rafting",
@@ -300,6 +364,7 @@ function ActivityCard({
     detail,
     detailIcon,
     facts,
+    filterId,
     id,
     image,
     imagePosition,
@@ -314,7 +379,7 @@ function ActivityCard({
   return (
     <article
       id={id}
-      data-activity={id}
+      data-activity={filterId ?? id}
       className="group relative flex min-w-0 scroll-mt-28 flex-col overflow-hidden rounded-[1.5rem] border border-[oklch(90%_0.025_160)] bg-white shadow-[0_16px_45px_rgba(30,77,58,0.08)] transition-shadow duration-300 hover:shadow-[0_24px_55px_rgba(30,77,58,0.14)] motion-reduce:transition-none"
     >
       <span
