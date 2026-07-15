@@ -12,6 +12,7 @@ const navigationLinks = [
   { href: "/hotel", label: "Hotel" },
   { href: "/travel", label: "Travel" },
   { href: "/contact", label: "Contact" },
+  { href: "/how-you-feel", label: "How You Feel" },
 ];
 
 function BrandLogo() {
