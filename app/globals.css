@@ -733,3 +733,10 @@ button {
     animation: none;
   }
 }
+
+.hotel-photo-rail { height: 100%; overflow: hidden; }
+.hotel-photo-track { display: grid; gap: .8rem; padding: .8rem 0; animation: hotel-photo-scroll 28s linear infinite; will-change: transform; }
+.hotel-photo-track-reverse { animation-direction: reverse; animation-duration: 34s; }
+.hotel-photo-tile { position: relative; height: clamp(9rem, 20vw, 14rem); overflow: hidden; border-radius: 1.15rem; box-shadow: 0 .8rem 1.75rem rgb(0 0 0 / .22); }
+@keyframes hotel-photo-scroll { from { transform: translateY(0); } to { transform: translateY(calc(-50% - .4rem)); } }
+@media (prefers-reduced-motion: reduce) { .hotel-photo-track { animation: none; } }
