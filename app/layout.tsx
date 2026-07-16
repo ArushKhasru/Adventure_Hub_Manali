@@ -25,6 +25,7 @@ const bodyFont = Atkinson_Hyperlegible_Next({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://adventure-hub-manali.vercel.app"),
   title: {
     default: "Adventure Hub Manali",
     template: "%s | Adventure Hub Manali",
@@ -32,6 +33,28 @@ export const metadata: Metadata = {
   description:
     "Plan stays, travel, tours, and outdoor activities across Manali in one place for families and adventure travelers.",
   applicationName: "Adventure Hub Manali",
+  keywords: [
+    "Manali travel guide",
+    "Manali adventure activities",
+    "Manali stays",
+    "Manali trip planning",
+    "Solang Valley activities",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "/",
+    siteName: "Adventure Hub Manali",
+    title: "Adventure Hub Manali",
+    description:
+      "Plan stays, travel, tours, and outdoor activities across Manali in one place.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Adventure Hub Manali",
+    description:
+      "Plan stays, travel, tours, and outdoor activities across Manali in one place.",
+  },
 };
 
 export const viewport: Viewport = {
