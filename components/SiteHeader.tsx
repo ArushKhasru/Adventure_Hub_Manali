@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import Icons from "@/components/Icons";
+import { useCart } from "@/components/useCart";
 
 const navigationLinks = [
   { href: "/", label: "Home" },
@@ -15,9 +16,14 @@ const navigationLinks = [
   { href: "/how-you-feel", label: "How You Feel" },
 ];
 
-function BrandLogo() {
+function BrandLogo({ isLight = false }: { isLight?: boolean }) {
+  const textColor = isLight ? "text-[#174b3c]" : "text-white";
+  const subTextColor = isLight ? "text-[#174b3c]/90" : "text-white/90";
+  const separatorColor = isLight ? "bg-[#174b3c]/70" : "bg-white/70";
+  const descColor = isLight ? "text-[#174b3c]/75" : "text-white/75";
+
   return (
-    <div className="flex flex-col items-center text-white">
+    <div className={`flex flex-col items-center ${textColor}`}>
       <svg
         aria-hidden="true"
         viewBox="0 0 110 38"
@@ -62,13 +68,13 @@ function BrandLogo() {
         Adventure Hub
       </span>
 
-      <span className="mt-1 flex items-center gap-1.5 text-[6px] font-semibold uppercase tracking-[0.34em] text-white/90 sm:text-[7px]">
-        <span className="h-px w-3 bg-white/70" />
+      <span className={`mt-1 flex items-center gap-1.5 text-[6px] font-semibold uppercase tracking-[0.34em] ${subTextColor} sm:text-[7px]`}>
+        <span className={`h-px w-3 ${separatorColor}`} />
         Manali
-        <span className="h-px w-3 bg-white/70" />
+        <span className={`h-px w-3 ${separatorColor}`} />
       </span>
 
-      <span className="mt-1 text-[5px] font-medium tracking-[0.12em] text-white/75 sm:text-[6px]">
+      <span className={`mt-1 text-[5px] font-medium tracking-[0.12em] ${descColor} sm:text-[6px]`}>
         Stay. Travel. Adventure.
       </span>
     </div>
@@ -77,6 +83,7 @@ function BrandLogo() {
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const { count, isLoaded } = useCart();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -135,11 +142,14 @@ export default function SiteHeader() {
   }, [isOpen]);
 
   const showGreenBackground = isScrolled || isOpen;
+  const isLightHeader = pathname === "/hotel" && !showGreenBackground;
 
   return (
     <header
       ref={headerRef}
-      className={`fixed inset-x-0 top-0 z-50 h-[72px] text-white transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 md:h-[80px] ${
+      className={`fixed inset-x-0 top-0 z-50 h-[72px] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 md:h-[80px] ${
+        isLightHeader ? "text-[#174b3c]" : "text-white"
+      } ${
         showGreenBackground
           ? "border-b border-white/10 bg-[#064d39]/95 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-md"
           : "border-b border-transparent bg-transparent shadow-none backdrop-blur-none"
@@ -154,7 +164,7 @@ export default function SiteHeader() {
           aria-label="Adventure Hub Manali home"
           className="flex min-h-11 shrink-0 items-center no-underline"
         >
-          <BrandLogo />
+          <BrandLogo isLight={isLightHeader} />
         </Link>
 
         <ul className="hidden list-none items-center gap-7 lg:flex xl:gap-8">
@@ -172,15 +182,17 @@ export default function SiteHeader() {
                   aria-current={isActive ? "page" : undefined}
                   className={`group relative inline-flex min-h-11 items-center text-[11px] font-medium no-underline transition-colors duration-300 ${
                     isActive
-                      ? "text-white"
-                      : "text-white/80 hover:text-white"
+                      ? isLightHeader ? "text-[#174b3c]" : "text-white"
+                      : isLightHeader ? "text-[#174b3c]/80 hover:text-[#174b3c]" : "text-white/80 hover:text-white"
                   }`}
                 >
                   {link.label}
 
                   <span
                     aria-hidden="true"
-                    className={`absolute bottom-[5px] left-1/2 h-px -translate-x-1/2 bg-white transition-all duration-300 ${
+                    className={`absolute bottom-[5px] left-1/2 h-px -translate-x-1/2 transition-all duration-300 ${
+                      isLightHeader ? "bg-[#174b3c]" : "bg-white"
+                    } ${
                       isActive
                         ? "w-full opacity-100"
                         : "w-0 opacity-0 group-hover:w-full group-hover:opacity-70"
@@ -192,42 +204,81 @@ export default function SiteHeader() {
           })}
         </ul>
 
-        <Link
-          href="/activities"
-          className="hidden min-h-10 items-center justify-center rounded-md bg-[#2b8a68] px-6 text-[11px] font-semibold text-white no-underline transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#36a17b] lg:inline-flex"
-        >
-          Explore tours
-        </Link>
+        <div className="hidden items-center gap-6 lg:flex">
+          <Link
+            href="/cart"
+            aria-label="View Trip Cart"
+            className={`group relative inline-flex min-h-10 items-center justify-center transition-colors duration-300 ${
+              isLightHeader ? "text-[#174b3c]/80 hover:text-[#174b3c]" : "text-white/80 hover:text-white"
+            }`}
+          >
+            <Icons.ShoppingCart className="size-5 transition-transform group-hover:scale-105" strokeWidth={2} />
+            {isLoaded && count > 0 && (
+              <span className="absolute -right-2.5 -top-1 flex size-5 items-center justify-center rounded-full bg-[var(--color-gold)] text-[10px] font-black text-[var(--color-ink)] shadow-sm animate-in zoom-in-50 duration-200">
+                {count}
+              </span>
+            )}
+          </Link>
+          <Link
+            href="/activities"
+            className="min-h-10 inline-flex items-center justify-center rounded-md bg-[#2b8a68] px-6 text-[11px] font-semibold text-white no-underline transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#36a17b]"
+          >
+            Explore tours
+          </Link>
+        </div>
 
-        <button
-          ref={menuButtonRef}
-          type="button"
-          aria-expanded={isOpen}
-          aria-controls="mobile-navigation"
-          aria-label={isOpen ? "Close main menu" : "Open main menu"}
-          onClick={() => setIsOpen((current) => !current)}
-          className="relative inline-flex size-11 items-center justify-center rounded-md border border-white/30 bg-white/10 text-white backdrop-blur-sm lg:hidden"
-        >
-          <span aria-hidden="true" className="relative h-4 w-6">
-            <span
-              className={`absolute left-0 top-0 h-0.5 w-6 rounded-full bg-current transition-transform duration-300 ${
-                isOpen ? "translate-y-[7px] rotate-45" : ""
-              }`}
-            />
+        <div className="flex items-center gap-3 lg:hidden">
+          <Link
+            href="/cart"
+            aria-label="View Trip Cart"
+            className={`group relative inline-flex size-11 items-center justify-center rounded-md border backdrop-blur-sm transition-colors ${
+              isLightHeader
+                ? "border-[#174b3c]/30 bg-[#174b3c]/10 text-[#174b3c] hover:bg-[#174b3c]/20"
+                : "border-white/30 bg-white/10 text-white hover:bg-white/20"
+            }`}
+          >
+            <Icons.ShoppingCart className="size-5 transition-transform group-hover:scale-105" strokeWidth={2} />
+            {isLoaded && count > 0 && (
+              <span className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full bg-[var(--color-gold)] text-[10px] font-black text-[var(--color-ink)] shadow-sm animate-in zoom-in-50 duration-200">
+                {count}
+              </span>
+            )}
+          </Link>
 
-            <span
-              className={`absolute left-0 top-[7px] h-0.5 w-6 rounded-full bg-current transition-opacity duration-300 ${
-                isOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
+          <button
+            ref={menuButtonRef}
+            type="button"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isOpen ? "Close main menu" : "Open main menu"}
+            onClick={() => setIsOpen((current) => !current)}
+            className={`relative inline-flex size-11 items-center justify-center rounded-md border backdrop-blur-sm transition-colors ${
+              isLightHeader
+                ? "border-[#174b3c]/30 bg-[#174b3c]/10 text-[#174b3c]"
+                : "border-white/30 bg-white/10 text-white"
+            }`}
+          >
+            <span aria-hidden="true" className="relative h-4 w-6">
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-6 rounded-full bg-current transition-transform duration-300 ${
+                  isOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
 
-            <span
-              className={`absolute bottom-0 left-0 h-0.5 w-6 rounded-full bg-current transition-transform duration-300 ${
-                isOpen ? "-translate-y-[7px] -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
+              <span
+                className={`absolute left-0 top-[7px] h-0.5 w-6 rounded-full bg-current transition-opacity duration-300 ${
+                  isOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+
+              <span
+                className={`absolute bottom-0 left-0 h-0.5 w-6 rounded-full bg-current transition-transform duration-300 ${
+                  isOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </nav>
 
       <div

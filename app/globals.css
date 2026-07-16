@@ -293,7 +293,11 @@ button {
   isolation: isolate;
   background: var(--color-deep-forest);
   color: white;
-  animation: welcome-splash-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Blocking script sets this attribute on non-home routes — hide before paint */
+[data-skip-splash="1"] .welcome-splash {
+  display: none !important;
 }
 
 .welcome-splash-leaving {

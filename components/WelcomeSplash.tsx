@@ -73,8 +73,18 @@ export default function WelcomeSplash() {
   useEffect(() => {
     if (hasHandledInitialPath.current) return;
     hasHandledInitialPath.current = true;
-    if (pathname !== "/") return;
 
+    // Already shown this session — stay invisible
+    try {
+      if (sessionStorage.getItem("ahm-splash-shown")) {
+        return;
+      }
+      sessionStorage.setItem("ahm-splash-shown", "1");
+    } catch {
+      // sessionStorage unavailable (e.g. private browsing quota) — show anyway
+    }
+
+    // First visit this session — show splash
     setIsVisible(true);
 
     const reduceMotion = window.matchMedia(
@@ -94,7 +104,7 @@ export default function WelcomeSplash() {
       window.removeEventListener("keydown", handleKeyDown);
       clearTimers();
     };
-  }, [clearTimers, dismiss, pathname]);
+  }, [clearTimers, dismiss]);
 
   if (!isVisible) return null;
 

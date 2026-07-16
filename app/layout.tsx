@@ -51,8 +51,15 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable}`}
+      suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col bg-[var(--color-soft-white)] text-[var(--color-ink)]">
+        {/* Runs before paint — hides splash if already shown in this session to prevent flash on reload */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("ahm-splash-shown"))document.documentElement.dataset.skipSplash="1"}catch(e){}`,
+          }}
+        />
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>

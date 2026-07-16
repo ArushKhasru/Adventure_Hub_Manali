@@ -1,4 +1,5 @@
 import {
+  ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
   BedDouble,
@@ -19,6 +20,7 @@ import {
   Pause,
   Phone,
   Play,
+  Star,
   TreePine,
   UsersRound,
   CalendarX2,
@@ -36,7 +38,14 @@ import {
   TriangleAlert,
   Umbrella,
   Wind,
-   
+  ShoppingCart,
+  Trash2,
+  Coffee,
+  Heart,
+  ShieldCheck,
+  Sparkles,
+  Trees,
+  Utensils,
 } from "lucide-react";
 
 import {
@@ -47,6 +56,7 @@ import {
 } from "react-icons/fa6";
 
 const Icons = {
+  ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
   BedDouble,
@@ -60,10 +70,12 @@ const Icons = {
   Clock3,
   ChevronLeft,
   ChevronRight,
+  Coffee,
   Compass,
   Copy,
   FacebookIcon,
   Gauge,
+  Heart,
   InstagramIcon,
   Leaf,
   Mail,
@@ -77,18 +89,24 @@ const Icons = {
   Phone,
   Play,
   Route,
+  ShieldCheck,
   Snowflake,
+  Sparkles,
+  Star,
   SunMedium,
   TentTree,
   TrainFront,
   TreePine,
+  Trees,
   TriangleAlert,
   Umbrella,
   UsersRound,
+  Utensils,
+  ShoppingCart,
+  Trash2,
   WhatsAppIcon,
   Wind,
   YouTubeIcon,
- 
 } as const;
 
 export type IconsType = typeof Icons;

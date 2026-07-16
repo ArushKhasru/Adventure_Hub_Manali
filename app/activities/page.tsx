@@ -7,6 +7,7 @@ import ActivityFilters from "@/components/ActivityFilters";
 import ActivityScrollReveal from "@/components/ActivityScrollReveal";
 import Icons, { type IconName } from "@/components/Icons";
 import PageLenis from "@/components/PageLenis";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export const metadata: Metadata = {
   title: "Adventure Activities in Manali",
@@ -490,24 +491,14 @@ function ActivityCard({
               Enquire WhatsApp
             </Link>
 
-            <Link
-              href={{
-                pathname: "/contact",
-                query: {
-                  activities: "on",
-                  activity: activityParam,
-                },
-              }}
-              className="group/button inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[var(--color-forest)] bg-white px-4 py-3 text-center text-sm font-bold text-[var(--color-deep-forest)] no-underline transition-colors duration-200 hover:bg-[var(--color-forest-wash)] motion-reduce:transition-none"
-            >
-              Add to Trip Cart
-
-              <AppIcon
-                name="ArrowRight"
-                className="size-4 transition-transform duration-300 group-hover/button:translate-x-1"
-                strokeWidth={2}
-              />
-            </Link>
+            <AddToCartButton
+              id={id}
+              type="activity"
+              title={title}
+              price={price}
+              image={image}
+              detail={detail}
+            />
           </div>
         </div>
       </div>
