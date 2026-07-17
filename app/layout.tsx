@@ -33,6 +33,10 @@ export const metadata: Metadata = {
   description:
     "Plan stays, travel, tours, and outdoor activities across Manali in one place for families and adventure travelers.",
   applicationName: "Adventure Hub Manali",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+  },
   keywords: [
     "Manali travel guide",
     "Manali adventure activities",
